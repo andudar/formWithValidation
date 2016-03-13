@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Keyboard</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+<h1>Form with validation</h1>
+<form action="" name="form">
+<fieldset>
+	<legend>My form</legend>
+	<div>Your name</div>
+	<input type="text" name="name">
+	<div class="tooltip">please, enter your name</div>
+	<div>Your password</div>
+	<input type="password" name="password">	
+	<div class="tooltip">please, enter your password</div>
+	<button id="add-user" type="button">Ok</button>
+	<button id="btn" type="submit">Submit</button>
+	<button id="btn-clear" type="reset">Reset</button>
+</fieldset>
+</form>
+	<script type="text/javascript">
+
+	
+
+
+var clear = document.getElementById('btn-clear');
+clear.onclick = function(){
+	var inputs = form.getElementsByTagName('input');
+	for(var i = 0; i < inputs.length; i++){
+		hide(inputs[i]);
+		inputs[i].value = '';
+	}
+}
+
+
+
+
+document.form.onsubmit = function(){
+	var formTrue = false;
+	var inputs = form.getElementsByTagName('input');
+	for(var i = 0; i < inputs.length; i++){
+		if(inputs[i].value){
+			formTrue = true;
+		}else {
+			inputs[i].nextElementSibling.style = "display: block";
+			formTrue = false;
+		}
+	}
+	if(!formTrue){
+		alert("Form is not right! Please retry again");
+	}else{
+		alert("Everything is alright!")
+	}
+
+
+};
+
+form.onkeypress = function(e){
+	var target = e.target;
+	if(target.nodeName != 'INPUT'){
+		return;
+	};
+	hide(target);
+}
+
+
+function hide(el){
+	if(!el.nextElementSibling.classList.contains('tooltip')){
+		return
+	}
+	el.nextElementSibling.classList.remove('tooltip-show');
+	/*el.nextElementSibling.style.display = 'none';*/
+};
+
+function show(el){
+	if(!el.nextElementSibling.classList.contains('tooltip')){
+		return
+	}
+
+	el.nextElementSibling.classList.add('tooltip-show');
+	/*el.nextElementSibling.style.display = 'block';*/
+}
+
+
+var addUser = document.getElementById('add-user');
+
+addUser.onclick = function(){
+	var r = /\w+/;
+
+		var elems = form.elements;
+
+		for(var i = 0; i < elems.length; i++){
+			if(elems[i].nodeName != 'INPUT'){
+				continue;
+			}
+			if(r.test(elems[i].value) === false){
+				show(elems[i]);
+				tooltipShow = true;
+			}
+		}
+
+
+	nameVal = form.name.value;
+	passwordVal = form.password.value;
+
+	
+	if(tooltipShow){
+		return;
+	}
+
+
+
+	for(var i = 0; i < users.length; i++){
+		var usersName = users[i].name,
+			usersPassword = users[i].password;
+			
+		if(nameVal !== usersName && passwordVal !== usersPassword){
+			notUserYet = true;
+		} else if(nameVal === usersName && passwordVal !== usersPassword){
+			notPassword = true;
+		} else if(nameVal === usersName && passwordVal=== usersPassword){
+			isUser = true;
+			break;
+		}
+	};
+
+	if (notPassword){
+		alert("Password is wrong");
+	}else if (isUser){
+		alert("Welcome, " + nameVal);
+	}else if(notUserYet){
+		var accept = confirm("You are not our user yet, \ndo you want to register?");
+		if(accept){
+			users.push(userObj);
+		}
+	}
+	/*if(registered){
+		alert("welcome, " + form.name.value);
+	}
+
+	if(!registered ){
+
+	}*/
+//end
+	/*var userStr = Object.values(userObj).reduce(function(res,el){
+  			return res + el;
+		},'');
+
+	for(var i = 0; i < users.length; i++){
+		var currentUser = users[i];
+		var alreadyUser = Object.values(currentUser).reduce(function(res,el){
+  			return res + el;
+		},'');
+
+		if(userObj.name == currentUser.name && alreadyUser === userStr){
+			find = true;
+			break;
+		}
+		if(alreadyUser !== userStr){
+			find = false;
+		}
+  		
+	};
+
+
+	if(find){
+		alert("Hello, " + users[i].name);//   i    ?????????
+		console.log('alreadyUser is: ' + alreadyUser + ', userStr is: ' + userStr);
+	}else {
+		console.log('alreadyUser is: ' + alreadyUser + ', userStr is: ' + userStr);
+		users.push(userObj);
+		alert(userObj.name + ', we are glad you join us');
+	}*/
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>
